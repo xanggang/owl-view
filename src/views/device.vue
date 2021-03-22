@@ -4,6 +4,7 @@
     <el-button @click="run">  template 内部错误</el-button>
     <el-button @click="run3"> http请求错误</el-button>
     <el-button @click="run4"> 函数错误</el-button>
+    <el-button @click="run5"> promise</el-button>
   </div>
 </template>
 
@@ -20,7 +21,10 @@ export default {
       axios.get('http://127.0.0.1:8888/api/any')
     },
     run4 () {
-      throw new Error('错误内容')
+      this.a.forEach()
+    },
+    run5 () {
+      return Promise.reject(123)
     }
   }
 }

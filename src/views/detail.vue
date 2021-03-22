@@ -21,22 +21,48 @@
 
     <div class="content">
       <el-tag class="tag" v-if="logDetail.ip">ip： {{ logDetail.ip }}</el-tag>
-      <el-tag class="tag" v-if="logDetail.system">操作系统： {{ logDetail.system }}</el-tag>
-      <el-tag class="tag" v-if="logDetail.system_version">系统版本： {{ logDetail.system_version }}</el-tag>
-      <el-tag class="tag" v-if="logDetail.browser_type">浏览器类型： {{ logDetail.browser_type }}</el-tag>
-      <el-tag class="tag" v-if="logDetail.browser_name">浏览器名称： {{ logDetail.browser_name }}</el-tag>
-      <el-tag class="tag" v-if="logDetail.browser_version">浏览器版本： {{ logDetail.browser_version }}</el-tag>
-      <el-tag class="tag" v-if="logDetail.browser_core">浏览器内核： {{ logDetail.browser_core }}</el-tag>
-      <div class="log-container" v-html="logDetail.err_content"></div>
+      <el-tag class="tag" v-if="logDetail.device_os_name">操作系统： {{ logDetail.device_os_name }}</el-tag>
+      <el-tag class="tag" v-if="logDetail.device_os_version">系统版本： {{ logDetail.device_os_version }}</el-tag>
+      <el-tag class="tag" v-if="logDetail.device_browser_name">浏览器名称： {{ logDetail.device_browser_name }}</el-tag>
+      <el-tag class="tag" v-if="logDetail.device_browser_version">浏览器版本： {{ logDetail.device_browser_version }}</el-tag>
+      <el-tag class="tag" v-if="logDetail.device_engine_name">浏览器内核： {{ logDetail.device_engine_name }}</el-tag>
+      <el-tag class="tag" v-if="logDetail.device_engine_version">浏览器内核版本： {{ logDetail.device_engine_version }}</el-tag>
+
+      <el-collapse accordion class="content-warp">
+        <el-collapse-item>
+          <div slot="title" class="collapse-title">
+            错误内容<i class="header-icon el-icon-info"></i>
+          </div>
+          <div class="log-container" v-html="logDetail.err_content"></div>
+        </el-collapse-item>
+
+        <el-collapse-item>
+          <div slot="title" class="collapse-title">
+            用户行为<i class="header-icon el-icon-info"></i>
+          </div>
+          <el-timeline>
+            <el-timeline-item
+              v-for="(activity, index) in logDetail.breadcrumbs"
+              :key="index"
+              :timestamp="activity.timestamp"
+            >
+              <ErrorBreadcrumbs :item="activity"></ErrorBreadcrumbs>
+            </el-timeline-item>
+          </el-timeline>
+        </el-collapse-item>
+      </el-collapse>
     </div>
   </div>
 </template>
 
 <script>
 import { getLogDetail } from '../api/api'
+import ErrorBreadcrumbs from '../components/error-breadcrumbs'
+import dayjs from 'dayjs'
 
 export default {
   name: 'device',
+  components: { ErrorBreadcrumbs },
   data () {
     return {
       loading: false,
@@ -51,7 +77,15 @@ export default {
 
     async getDetail () {
       this.loading = true
-      this.logDetail = await getLogDetail({ id: this.$route.params.id })
+      const res = await getLogDetail({ id: this.$route.params.id })
+      res.breadcrumbs = JSON.parse(res.breadcrumbs) || []
+      res.breadcrumbs = res.breadcrumbs.reduce((tol, cur) => {
+        return tol.concat(cur.behavior)
+      }, [])
+      res.breadcrumbs.forEach(obj => {
+        obj.timestamp = dayjs(obj.happenTime ).format('YYYY-MM-DD HH:mm:ss')
+      })
+      this.logDetail = res
       this.loading = false
     },
 
@@ -93,17 +127,30 @@ export default {
     }
   }
 
-  .log-container {
-    margin-top: 30px;
-    padding: 10px;
-    background-color: #f0f2f5;
-    line-height: 20px;
-    font-weight: normal;
-    pre {
-      margin-top: 10px;
+  .content-warp {
+    margin-top: 20px;
+
+    .collapse-title {
+      font-size: 18px;
+      font-weight: normal;
+
+      & > i {
+        margin-left: 5px;
+      }
     }
-    .red {
-      color: red;
+
+    .log-container {
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f0f2f5;
+      line-height: 20px;
+      font-weight: normal;
+      pre {
+        margin-top: 10px;
+      }
+      .red {
+        color: red;
+      }
     }
   }
 
