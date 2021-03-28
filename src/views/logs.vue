@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Search :projectList="projectList" @submit="search"></Search>
+    <Search @submit="search"></Search>
 
     <el-table
       :data="tableData"
@@ -65,15 +65,13 @@
 
 <script>
 import Search from '../components/search'
-import { getProjectList, getLogList } from '../api/api'
+import { getLogList } from '../api/api'
 export default {
   name: 'logs',
   components: { Search },
   data () {
     return {
-      form: {},
       loading: false,
-      projectList: [],
       tableData: [],
       searchData: {
         app_name: '',
@@ -86,11 +84,6 @@ export default {
     }
   },
   methods: {
-    async getList () {
-      this.loading = true
-      this.projectList = await getProjectList()
-      this.loading = false
-    },
     handleClick (row) {
       this.$router.push({
         path: `./detail/${row.id}`
@@ -98,7 +91,7 @@ export default {
     },
     async search (data) {
       const a = {
-        app_name: 'owl-view',
+        appId: 'owl-view',
         startTime: '2021-02-01 14:24:32',
         endTime: '2021-04-01 14:24:32'
       }
@@ -115,7 +108,6 @@ export default {
     }
   },
   async mounted () {
-    await this.getList()
     await this.search()
   }
 }

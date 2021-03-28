@@ -30,3 +30,18 @@ export function getLogDetail (params) {
   return axios.get('/api/log/get', { params })
 }
 
+// 性能平均值
+export function getPerformanceAvg (params) {
+  return axios.get('/api/logs/performanceAvg', { params })
+}
+
+// 设备分布
+export function getDeviceStatistics (params) {
+  return axios.get('/api/logs/deviceStatistics', { params })
+}
+
+// 获取api错误
+export function getApiErrorsStatistics (params) {
+  return axios.get('/api/logs/apiErrorsStatistics', { params })
+}
+

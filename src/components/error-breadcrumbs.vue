@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 
 .ml-20 {
   margin-left: 20px;

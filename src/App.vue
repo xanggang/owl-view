@@ -14,7 +14,7 @@ export default {
 }
 
 </script>
-<style lang="scss">
+<style lang="less" scoped>
 
   #app {
     height: 100vh;

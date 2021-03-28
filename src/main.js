@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import LogSdkVue from 'owl-util-sdk/dist/plugins/vue'
+// import LogSdkVue from './vue'
 
 import ElementUI from 'element-ui'
 import './style/reset.css'

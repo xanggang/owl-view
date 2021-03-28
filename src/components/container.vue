@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .container {
     height: 100%;
   }

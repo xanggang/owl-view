@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style llang="less" scoped>
 
 .errorHighlight {
   color: red!important;
