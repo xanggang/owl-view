@@ -1,30 +1,31 @@
 <template>
   <div>
-    <el-button @click="run1"> vue内部错误</el-button>
-    <el-button @click="run">  template 内部错误</el-button>
-    <el-button @click="run3"> http请求错误</el-button>
-    <el-button @click="run4"> 函数错误</el-button>
-    <el-button @click="run5"> promise</el-button>
+    <Search @submit="search"></Search>
+    <deviceChat :chartDatas="chartData" style="width: 1000px; height: 300px;"></deviceChat>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
+import { getDeviceStatistics } from '../api/api'
+import Search from '../components/search'
+import deviceChat from '../components/deviceChat'
 export default {
   name: 'device',
+  components: { Search, deviceChat },
+  data () {
+    return {
+      type: 'device_browser_name', // device_engine_name device_os_name
+      chartData: []
+    }
+  },
   methods: {
-    run1 () {
-      this.a()
-    },
-    run3 () {
-      axios.get('http://127.0.0.1:8888/api/any')
-    },
-    run4 () {
-      this.a.forEach()
-    },
-    run5 () {
-      return Promise.reject(123)
+    async search (par) {
+      const res = await getDeviceStatistics({
+        ...par,
+        type: this.type
+      })
+      this.chartData = res.data
+      console.log(res);
     }
   }
 }

@@ -25,15 +25,3 @@ const sdk = new LogSdkVue({
 })
 
 Vue.use(sdk)
-
-// import Raven from "raven-js";
-// import RavenVue from 'raven-js/plugins/vue'
-// //
-// Raven
-//   .config('https://08dc77f2b5dd42e490be150ad705ddd@sentry.io/123456')
-//   .addPlugin(RavenVue, Vue)
-//   .install()
-//   .config('http://127.0.0.1:7001/file')
-// Raven.setTransport(function(option){
-//   console.log(option);
-// })

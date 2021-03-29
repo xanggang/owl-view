@@ -6,7 +6,7 @@ module.exports = {
     plugins: [
       // eslint-disable-next-line new-cap
       new uploadSourceMapWebPlugin({
-        uploadUrl: 'http://localhost:7001/api/log/upload-map'
+        uploadUrl: 'http://owl.lynn.cool/api/log/upload-map'
       })
     ]
   }

@@ -91,7 +91,7 @@ export default {
     },
     async search (data) {
       const a = {
-        appId: 'owl-view',
+        projectId: 'owl-view',
         startTime: '2021-02-01 14:24:32',
         endTime: '2021-04-01 14:24:32'
       }

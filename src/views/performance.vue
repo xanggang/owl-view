@@ -1,13 +1,14 @@
 <template>
   <div>
     <Search appName @submit="search"></Search>
-    {{ infos }}
+    <PerformanceChat :chartDatas="sss" style="width: 1000px; height: 300px;"></PerformanceChat>
   </div>
 </template>
 
 <script>
 import Search from '../components/search'
 import { getPerformanceAvg } from '../api/api'
+import PerformanceChat from '../components/performanceChat'
 
 const columns = [
   {
@@ -50,10 +51,11 @@ const columns = [
 
 export default {
   name: 'performance',
-  components: { Search },
+  components: { Search, PerformanceChat },
   data () {
     return {
-      infos: {}
+      infos: {},
+      sss: {}
     }
   },
   methods: {
@@ -68,6 +70,7 @@ export default {
         }
       })
       this.infos = infos
+      this.sss = data
     }
   }
 }
