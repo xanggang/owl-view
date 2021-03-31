@@ -16,9 +16,9 @@
         </div>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :span="10">
         <div class="select-box">
-          <span>选择事件</span>
+          <span>选择时间</span>
           <el-date-picker
             style="width: 500px;"
             type="datetimerange"
@@ -68,6 +68,10 @@ export default {
     },
     async getProjectList () {
       this.projectList = await getProjectList()
+      if (this.projectList.length) {
+        this.appId = this.projectList[0].id
+        this.submit()
+      }
     }
   }
 }

@@ -7,47 +7,40 @@
 <script>
 import * as echarts from 'echarts'
 
-
 const optionBase = {
   tooltip: {
     trigger: 'item'
   },
   legend: {
-    top: '5%',
-    left: 'center'
+    orient: 'vertical',
+    top: 'top',
+    left: 'left',
+    data: []
   },
   series: [
     {
       name: '访问来源',
       type: 'pie',
-      radius: ['40%', '70%'],
-      avoidLabelOverlap: false,
-      itemStyle: {
-        borderRadius: 10,
-        borderColor: '#fff',
-        borderWidth: 2
-      },
-      label: {
-        show: false,
-        position: 'center'
-      },
-
-      labelLine: {
-        show: false
-      },
+      center: ['40%', '60%'],
+      data: []
+    },
+    {
+      name: '访问来源2',
+      center: ['80%', '60%'],
+      type: 'pie',
       data: []
     }
   ]
-};
+}
 
 export default {
-  name: 'performanceChat',
+  name: 'deviceChat',
   props: {
     chartDatas: Array
   },
   watch: {
     chartDatas: {
-      immediate: false,
+      immediate: true,
       handler () {
         this.init()
       }
@@ -61,14 +54,38 @@ export default {
   methods: {
     init () {
       if (!this.myChart) return
-
+      const chartDatas = [...this.chartDatas]
       const option = {
         ...optionBase
       }
-      option.series[0].data = this.chartDatas.map(item => {
+      let maxItemIndex = -1
+      let maxValue = -1
+      for (let i = 0; i < this.chartDatas.length; i++) {
+        const current = this.chartDatas[i]
+        if (Number(current.value) > maxValue) {
+          maxItemIndex = i
+          maxValue = Number(current.value)
+        }
+      }
+      const maxItem = chartDatas.splice(maxItemIndex, 1)
+      if (!maxItem.length) return
+      option.legend.data = this.chartDatas.map(d => d.name)
+      option.series[0].data = [
+        {
+          name: maxItem[0].name,
+          value: maxItem[0].value
+        },
+        {
+          name: '其他',
+          value: chartDatas.reduce((tol, cur) => {
+            return tol + Number(cur.value || 0)
+          }, 0)
+        }
+      ]
+      option.series[1].data = chartDatas.map(item => {
         return {
-          name: item.device_browser_name,
-          value: item.pv
+          name: item.name,
+          value: item.value
         }
       })
       this.myChart.setOption(option)

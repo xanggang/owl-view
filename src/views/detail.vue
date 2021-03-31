@@ -96,11 +96,11 @@ export default {
 }
 </script>
 
-<style llang="less" scoped>
+<style lang="less" scoped>
 
-.errorHighlight {
-  color: red!important;
-}
+  .errorHighlight {
+    color: red!important;
+  }
 
   .header-info {
     display: flex;
@@ -114,9 +114,6 @@ export default {
     }
     .type {
       margin-left: 10px;
-    }
-    .name {
-
     }
   }
 
@@ -148,10 +145,20 @@ export default {
       pre {
         margin-top: 10px;
       }
-      .red {
-        color: red;
-      }
     }
   }
+</style>
 
+<style lang="less">
+
+.log-container {
+
+  .red {
+    color: #f56c6c!important;
+  }
+
+  pre {
+    margin-top: 4px;
+  }
+}
 </style>

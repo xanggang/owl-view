@@ -8,38 +8,24 @@
       style="width: 100%"
     >
       <el-table-column
-        prop="app_name"
-        label="项目名称"
-        width="200px"
+        prop="url"
+        label="url"
       >
       </el-table-column>
-
       <el-table-column
-        prop="err_type"
-        label="错误类型"
-        width="200px"
+        prop="status"
+        label="status"
       >
       </el-table-column>
-
       <el-table-column
-        prop="err_message"
-        label="错误消息"
+        prop="request"
+        label="request"
       >
       </el-table-column>
-
       <el-table-column
-        prop="updatedAt"
-        label="最后触发时间"
-      >
-      </el-table-column>
-
-      <el-table-column
-        prop="updated_at"
+        prop="count"
         label="total"
       >
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.logDetails.length }}</span>
-        </template>
       </el-table-column>
 
       <el-table-column
@@ -67,9 +53,10 @@
 
 <script>
 import Search from '../components/search'
-import { getLogList } from '../api/api'
+import * as Api from '../api/api'
+
 export default {
-  name: 'logs',
+  name: 'apiError',
   components: { Search },
   data () {
     return {
@@ -88,7 +75,7 @@ export default {
   methods: {
     handleClick (row) {
       this.$router.push({
-        path: `./detail/${row.id}`
+        path: `./api/${row.id}`
       })
     },
     handleSearchParChange (data) {
@@ -98,9 +85,10 @@ export default {
     },
     async search () {
       this.loading = true
-      const res = await getLogList({
+      const res = await Api.getApiErrorsStatistics({
         ...this.searchData,
-        page: this.page
+        page: this.page,
+        limit: 20
       })
       this.tableData = res.rows
       this.total = res.count

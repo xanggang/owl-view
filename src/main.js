@@ -19,9 +19,23 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-const sdk = new LogSdkVue({
-  apiKey: '111',
-  uploadHost: 'http://localhost:7001/api/logs/store'
-})
+// const sdk = new LogSdkVue({
+//   apiKey: '111',
+//   uploadHost: 'http://localhost:7001/api/logs/store'
+// })
+//
+// Vue.use(sdk)
 
-Vue.use(sdk)
+// import * as Sentry from "@sentry/vue";
+// import { Integrations } from "@sentry/tracing";
+//
+// Sentry.init({
+//   Vue,
+//   dsn: "https://47c286895da94996ae130d5c493dfe6d@o422336.ingest.sentry.io/5700174",
+//   integrations: [new Integrations.BrowserTracing()],
+//
+//   // Set tracesSampleRate to 1.0 to capture 100%
+//   // of transactions for performance monitoring.
+//   // We recommend adjusting this value in production
+//   tracesSampleRate: 1.0,
+// });

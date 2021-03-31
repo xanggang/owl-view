@@ -1,5 +1,11 @@
 <template>
   <div class="chat-wrap">
+    <div class="info-wrap">
+      <div class="info-item" v-for="(item, index) in infos" :key="index">
+        <div>{{ item.title }}</div>
+        <div><span class="value">{{ item.value }}</span><span>ms</span></div>
+      </div>
+    </div>
     <div ref="char" class="chat"></div>
   </div>
 </template>
@@ -135,7 +141,17 @@ const optionBase = {
 export default {
   name: 'performanceChat',
   props: {
-    chartDatas: Object
+    chartDatas: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  data () {
+    return {
+      infos: []
+    }
   },
   watch: {
     chartDatas: {
@@ -203,6 +219,14 @@ export default {
         ]
       }
       this.myChart.setOption(option)
+      const infos = columns.map(({ title, dataIndex }) => {
+        return {
+          title,
+          dataIndex,
+          value: Math.round(this.chartDatas[dataIndex]) || 0
+        }
+      })
+      this.infos = infos
     }
   }
 }
@@ -212,7 +236,36 @@ export default {
 .chat-wrap {
   width: 100%;
   height: 100%;
+
+  .info-wrap {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+
+    .info-item {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 300;
+
+      & > div:last-child {
+        text-align: center;
+        color: #66707a;
+        margin-top: 5px;
+        .value {
+          font-size: 18px;
+          font-weight: 600;
+          color: #000;
+          margin-right: 2px;
+        }
+      }
+    }
+  }
   .chat {
+    margin-top: 20px;
     width: 100%;
     height: 100%;
   }

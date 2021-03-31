@@ -4,22 +4,31 @@
       <el-row> <el-button @click="handleOpenAddVie">创建项目</el-button></el-row>
     </div>
     <div class="project-list" v-loading="loading">
-      <el-row>
-        <el-col :span="6" v-for="item in list" :key="item.id">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>{{ item.app_name }}</span>
-              <el-button
-                class="button"
-                @click="handleDeleteProject(item.id)"
-                type="text"
-              >
-                删除项目
-              </el-button>
+      <div class="card-wrap">
+        <div
+          class="card"
+          v-for="(item, index) in list"
+          :key="item.id"
+          :style="{'background': getBackGround(index)}"
+          @click="handleOpenDetail(item)"
+        >
+          <div class="title-wrap">
+            <div class="logo"><img src="../assets/logo.png" alt=""></div>
+            <div class="title">{{ item.app_name }}</div>
+          </div>
+          <div class="user-wrap">
+            <div class="item">
+              <span>活跃用户: </span>
+              <span>199962</span>
             </div>
-          </el-card>
-        </el-col>
-      </el-row>
+            <div class="item">
+              <span>总访问量: </span>
+              <span>199962</span>
+            </div>
+          </div>
+          <i class="delete el-icon-circle-close" @click.stop="handleDeleteProject(item.id)"></i>
+        </div>
+      </div>
     </div>
 
     <el-dialog title="创建项目" :visible.sync="dialogTableVisible">
@@ -42,18 +51,47 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+    <el-dialog title="项目详情" :visible.sync="dialogDetailVisible">
+      <div class="project-detail">
+        <div class="item">
+          <span>创建者:</span>
+          <span>纳西</span>
+        </div>
+        <div class="item">
+          <span>项目名称:</span>
+          <span>{{ projectDetail.app_name }}</span>
+        </div>
+        <div class="item">
+          <span>appKey:</span>
+          <span>{{ projectDetail.app_key }}</span>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogDetailVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getProjectList, deleteProject, createProject } from '../api/api'
+const config = [
+  'linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%)',
+  'linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)',
+  'linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)',
+  'linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)',
+  'linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%)'
+]
 export default {
   name: 'project',
   data () {
     return {
+      config,
       list: [],
       loading: true,
       dialogTableVisible: false,
+      dialogDetailVisible: false,
       form: {
         name: '',
         appKey: ''
@@ -79,10 +117,18 @@ export default {
             trigger: 'change'
           }
         ]
-      }
+      },
+      projectDetail: {}
     }
   },
   methods: {
+    handleOpenDetail (item) {
+      this.projectDetail = item
+      this.dialogDetailVisible = true
+    },
+    getBackGround (index) {
+      return config[index]
+    },
     async getList () {
       this.loading = true
       const list = await getProjectList()
@@ -163,8 +209,101 @@ export default {
       height: 100%;
     }
   }
+
+  .card-wrap {
+    display: flex;
+    flex-wrap: wrap;
+
+    .card {
+      width: 300px;
+      height: 200px;
+      background: pink;
+      border-radius: 3px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      padding: 20px;
+      box-shadow:  4px 5px 6px 0 rgb(0 0 0 / 11%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow:  4px 5px 6px 0 rgb(0 0 0 / 20%);
+      }
+
+      .title-wrap {
+        display: flex;
+        align-items: center;
+        .logo {
+          width: 40px;
+          height: 40px;
+          background: #fff;
+          padding: 3px;
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 80%;
+            //height: 05%;
+          }
+        }
+        .title {
+          margin-left: 15px;
+          color: #fff;
+          font-size: 22px;
+          font-weight: bold;
+          text-shadow: 1px 1px 1px rgba(0,0,0, 0.3);
+        }
+      }
+
+      .user-wrap {
+        font-size: 14px;
+        color: #333;
+
+        .item {
+          margin-top: 10px;
+        }
+      }
+
+      .content {
+        font-size: 14px;
+        color: #fff;
+        margin-top: 20px;
+      }
+
+      .delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+          color: red;
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
 }
 
+.project-detail {
+
+  .item {
+    margin-top: 10px;
+    color: #333;
+    font-size: 14px;
+    & > span:first-child {
+      margin-right: 10px;
+    }
+  }
+
+}
 
 .button {
   float: right!important;

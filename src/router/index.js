@@ -33,6 +33,16 @@ const routes = [
     path: '/device',
     name: 'device',
     component: () => import(/* webpackChunkName: "about" */ '../views/device.vue')
+  },
+  {
+    path: '/api',
+    name: 'api',
+    component: () => import(/* webpackChunkName: "about" */ '../views/apiError.vue')
+  },
+  {
+    path: '/api/:id',
+    name: 'apiDetail',
+    component: () => import(/* webpackChunkName: "about" */ '../views/apiDetail.vue')
   }
 ]
 

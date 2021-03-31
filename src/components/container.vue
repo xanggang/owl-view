@@ -23,7 +23,7 @@
       </el-header>
       <el-divider class="divider"></el-divider>
       <el-main class="page-main">
-        <keep-alive include="logs">
+        <keep-alive :include="['logs', 'apiError']">
           <slot></slot>
         </keep-alive>
       </el-main>
@@ -52,10 +52,13 @@ export default {
         {
           path: '/device',
           name: '终端分部'
+        },
+        {
+          path: '/api',
+          name: '接口日志'
         }
       ],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-
     }
   }
 }
