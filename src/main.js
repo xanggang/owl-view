@@ -20,7 +20,7 @@ new Vue({
 
 const sdk = new LogSdkVue({
   apiKey: '111',
-  uploadHost: 'http://localhost:7001/api/logs/store'
+  uploadHost: `${process.env.VUE_APP_API_HOST}/api/logs/store`
 })
 
 Vue.use(sdk)
