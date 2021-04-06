@@ -10,7 +10,15 @@
 import container from '../src/components/container'
 export default {
   name: 'App',
-  components: { container }
+  components: { container },
+  mounted () {
+    this.$notify({
+      title: '提示',
+      dangerouslyUseHTMLString: true,
+      message: '<strong>前往查看博客 <a href="http://blog.lynn.cool">http://blog.lynn.cool</a></strong>',
+      duration: 0
+    })
+  }
 }
 
 </script>
