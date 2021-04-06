@@ -14,7 +14,7 @@ module.exports = class {
   }
 
   apply (compiler) {
-    // if (process.env.NODE_ENV !== 'production') return
+    if (process.env.NODE_ENV !== 'production') return
     if (!apiKey) return
     compiler.hooks.done.tap('upload-sourcemap-plugin', async e => {
       const _path = e.compilation.options.output.path

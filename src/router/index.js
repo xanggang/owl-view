@@ -43,6 +43,11 @@ const routes = [
     path: '/api/:id',
     name: 'apiDetail',
     component: () => import(/* webpackChunkName: "about" */ '../views/apiDetail.vue')
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: () => import(/* webpackChunkName: "about" */ '../views/error.vue')
   }
 ]
 
