@@ -7252,10 +7252,10 @@ osx-release@^1.0.0:
   dependencies:
     minimist "^1.1.0"
 
-owl-util-sdk@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/owl-util-sdk/-/owl-util-sdk-1.0.13.tgz#947c0e5494e354124ac7fe1c280f7a750abfe9b1"
-  integrity sha512-7VWehz5FZO6g0ZouqpwzPzvYElJ6K8JOq/Z5SM6Im25dA/+yw17xQIVHCJ1mJ4UCSG3+IQoLTrhl2ACEUZ2LIg==
+owl-util-sdk@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/owl-util-sdk/-/owl-util-sdk-1.0.15.tgz#7cb347d4c151b8da828718f84900d631f72c978e"
+  integrity sha512-vg7wxVhPOdnFK9MKF3UWxHDUs+AYHZdy/OD8/UM1zisF8KH3+x8BIh5V8YrOYVumvWHm4v3U+xfFZuy+DtB/PA==
   dependencies:
     "@types/axios" "^0.14.0"
     axios "^0.21.1"

@@ -3,8 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const http = require('http')
 const packagePath = process.cwd()
-const pkg = require(path.join(packagePath, 'package.json'))
-const projectName = pkg.name
+const apiKey = process.env.VUE_APP_API_OWL_KEY
 
 module.exports = class {
   constructor (option = {}) {
@@ -15,9 +14,8 @@ module.exports = class {
   }
 
   apply (compiler) {
-    if (process.env.NODE_ENV !== 'production') {
-      return
-    }
+    // if (process.env.NODE_ENV !== 'production') return
+    if (!apiKey) return
     compiler.hooks.done.tap('upload-sourcemap-plugin', async e => {
       const _path = e.compilation.options.output.path
       const list = glob.sync(path.join(_path, './**/*.{js.map,}'))
@@ -34,8 +32,7 @@ module.exports = class {
     // eslint-disable-next-line no-console
     console.log('上传' + filePath)
     return new Promise((resolve, reject) => {
-      const appName = projectName || 'not-name'
-      const url = `${this.uploadUrl}?fileName=${path.basename(filePath)}&appName=${appName}`
+      const url = `${this.uploadUrl}?fileName=${path.basename(filePath)}&apiKey=${apiKey}`
       const option = {
         method: 'POST', // 请求类型
         headers: { // 请求头
