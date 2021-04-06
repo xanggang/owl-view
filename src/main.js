@@ -19,7 +19,7 @@ new Vue({
 }).$mount('#app')
 
 const sdk = new LogSdkVue({
-  apiKey: '111',
+  apiKey: 'eb3b37e7-785d-4759-84e8-ac3dcb973b87',
   uploadHost: `${process.env.VUE_APP_API_HOST}/api/logs/store`
 })
 

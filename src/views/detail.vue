@@ -78,12 +78,12 @@ export default {
     async getDetail () {
       this.loading = true
       const res = await getLogDetail({ id: this.$route.params.id })
-      res.breadcrumbs = JSON.parse(res.breadcrumbs) || []
+      res.breadcrumbs = res.breadcrumbs ? JSON.parse(res.breadcrumbs) : []
       res.breadcrumbs = res.breadcrumbs.reduce((tol, cur) => {
         return tol.concat(cur.behavior)
       }, [])
       res.breadcrumbs.forEach(obj => {
-        obj.timestamp = dayjs(obj.happenTime ).format('YYYY-MM-DD HH:mm:ss')
+        obj.timestamp = dayjs(obj.happenTime).format('YYYY-MM-DD HH:mm:ss')
       })
       this.logDetail = res
       this.loading = false

@@ -137,12 +137,13 @@ export default {
       this.loading = false
     },
     handleDeleteProject (id) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该项目, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-        this.deleteProject(id)
+      }).then(async () => {
+        await this.deleteProject(id)
+        await this.getList()
       }).catch(() => {
         this.$message({
           type: 'info',
