@@ -15,7 +15,7 @@ export default {
   methods: {
     run1 () {
       axios.post({
-        url: 'www.001.com',
+        url: 'http://www.001.com',
         data: {
           a: 1
         },
