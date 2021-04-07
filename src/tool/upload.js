@@ -12,7 +12,7 @@ const bucket =  process.env.QINIU_BUCKET
 const fileList = []
 
 // 需要填写你的 Access Key 和 Secret Key
-const ACCESS_KEY =  process.env.QINIU_ACCESS_KEY
+const ACCESS_KEY = process.env.QINIU_ACCESS_KEY
 const SECRET_KEY = process.env.QINIU_SECRET_KEY
 const mac = new qiniu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY)
 const config = new qiniu.conf.Config()

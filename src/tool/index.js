@@ -51,7 +51,7 @@ module.exports = class {
           reject(`${filePath}上传失败`)
         } else {
           resolve(filePath)
-          // req.abort()
+          req.abort()
         }
       })
       req.on('error', (e) => {
