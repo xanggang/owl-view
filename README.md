@@ -1,29 +1,16 @@
-# project-template
 
-## Project setup
-```
-npm install
-```
+## owl日志管理平台
+访问地址`http://owl-web.lynn.cool/logs`
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 首页
+![](http://blog.lynn.cool/assets/img/1.efd72e96.jpg)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 访问性能
+![](http://blog.lynn.coo/assets/img/2.d2deb245.jpg)
 
-### Run your unit tests
-```
-npm run test:unit
-```
+### 浏览器分布
+![](http://blog.lynn.coo/assets/img/3.1565d92b.jpg)
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 错误日志
+![](http://blog.lynn.coo/assets/img/4.b8979b44.jpg)
+2
