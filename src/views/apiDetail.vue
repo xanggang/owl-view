@@ -79,7 +79,6 @@
 <script>
 import dayjs from 'dayjs'
 import * as Api from '../api/api'
-window.dayjs = dayjs
 
 export default {
   data () {
@@ -108,7 +107,6 @@ export default {
       const res = await Api.apiErrorsDetail({
         id: this.$route.params.id
       })
-      console.log(res);
       res.headers = res.headers && JSON.parse(res.headers)
       res.request = res.request && JSON.parse(res.request)
       this.msg = res

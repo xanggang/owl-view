@@ -72,7 +72,7 @@ const optionBase = {
     trigger: 'axis',
     axisPointer: {
       type: 'shadow'
-    },
+    }
   },
   legend: {
     data: ['重定向', 'DNS缓存', 'DNS查询', '首字节', 'TCP建立', '请求响应', 'DOM渲染', 'load事件', '页面加载完成']

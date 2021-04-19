@@ -36,9 +36,6 @@ export default {
       this.searchData = data
       this.search()
     },
-    handleChangeType (name) {
-
-    },
     async search () {
       const res = await getDeviceStatistics({
         ...this.searchData,
